@@ -20,7 +20,7 @@ export default class Character {
   draw() {
     this.ctx.drawImage(
       characterAssets[this.id],
-      1 * CHARACTER_SIZE + GAME_TILE /2,
+      0 * CHARACTER_SIZE + GAME_TILE /2,
       0 * CHARACTER_SIZE,
       GAME_TILE,
       CHARACTER_SIZE,

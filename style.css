@@ -24,3 +24,11 @@ canvas {
 .assets {
   display: none;
 }
+
+.debug-container {
+  display: inline-flex;
+  column-gap: 8px;
+  padding: 4px;
+  color: #EEE;
+  cursor: pointer;
+}
