@@ -1,4 +1,8 @@
-import { GAME_TILE } from './gameConfig.js'
+import {
+  GAME_ROWS,
+  GAME_TILE,
+} from './gameConfig.js'
+import { obstructions } from '../layouts/001.js'
 
 const characterAssets = {}
 const characterCount = 10
@@ -41,7 +45,43 @@ export default class Character {
     )
   }
 
+
+  faceDirection() {
+    switch (this.keysPressed.value) {
+      case 'ArrowDown':
+        this.frame.row = 0
+        break
+      case 'ArrowLeft':
+        this.frame.row = 1
+        break
+      case 'ArrowRight':
+          this.frame.row = 2
+          break
+      case 'ArrowUp':
+        this.frame.row = 3
+        break
+    }
+  }
+
   update(deltaTime) {
+    const currentTile = (Math.floor(this.y) + 1) * GAME_ROWS + Math.floor(this.x) + 1
+    let nextTile = currentTile
+    switch (this.keysPressed.value) {
+      case 'ArrowDown':
+        nextTile += GAME_ROWS
+        break
+      case 'ArrowLeft':
+        nextTile -= 1
+        break
+      case 'ArrowRight':
+          nextTile += 1
+          break
+      case 'ArrowUp':
+        nextTile -= GAME_ROWS
+        break
+    }
+    const block = obstructions.includes(nextTile)
+    if (block) return this.faceDirection()
     if (this.keysPressed.value || this.frame.time) {
       this.frame.time += deltaTime
       if (this.frame.time >= this.frame.maxTime) {
@@ -51,20 +91,7 @@ export default class Character {
       if (!step) {
         if (!this.frame.direction && this.keysPressed.value)
           this.frame.direction = this.keysPressed.value
-        switch (this.keysPressed.value) {
-          case 'ArrowDown':
-            this.frame.row = 0
-            break
-          case 'ArrowLeft':
-            this.frame.row = 1
-            break
-          case 'ArrowRight':
-              this.frame.row = 2
-              break
-          case 'ArrowUp':
-            this.frame.row = 3
-            break
-        }
+        this.faceDirection()
       }
       if (this.frame.currentStep !== step) {
         this.frame.currentStep = step

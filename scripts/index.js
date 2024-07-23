@@ -5,7 +5,7 @@ import {
 import { drawTiles} from './tileset.js'
 import keysPressed from './input.js'
 import Character from './character.js'
-import layout1 from '../layouts/001.js'
+import layout, { obstructions } from '../layouts/001.js'
 
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
@@ -19,7 +19,7 @@ debugEl.addEventListener('change', () => debug = !debug)
 const player = new Character({
   ctx,
   id: 1,
-  x: 2,
+  x: 0,
   y: 0,
   keysPressed,
 })
@@ -29,7 +29,7 @@ const animate = (timeStamp) => {
   const deltaTime = timeStamp - lastTime
   lastTime = timeStamp
   player.update(deltaTime)
-  drawTiles(ctx, layout1, debug)
+  drawTiles(ctx, layout, obstructions, debug)
   player.draw()
 
   requestAnimationFrame(animate)

@@ -19,7 +19,7 @@ const getTile = (layout, col, row) => {
   return [ sx, sy ]
 }
 
-export const drawTiles = (ctx, layout, debug) => {
+export const drawTiles = (ctx, layout, obstructions, debug) => {
   for (let row = 0; row < GAME_ROWS; row++) {
     for (let col = 0; col < GAME_COLS; col++) {
       const [ sx, sy ] = getTile(layout, col, row)
@@ -35,7 +35,7 @@ export const drawTiles = (ctx, layout, debug) => {
         GAME_TILE
       )
       if (debug) {
-        ctx.strokeStyle = 'red'
+        ctx.strokeStyle = obstructions.includes(row * GAME_COLS + col + 1) ? 'red' : 'black'
         ctx.strokeRect(
           col * TILE_SIZE,
           row * TILE_SIZE,

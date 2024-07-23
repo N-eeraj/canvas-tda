@@ -13,8 +13,8 @@ canvas {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: min(90%, 640px);
-  aspect-ratio: 1;
+  width: 90%;
+  aspect-ratio: 5/3;
   border: 1px solid #0AF;
   transform: translate(-50%, -50%);
   image-rendering: crisp-edges;
